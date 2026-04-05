@@ -1,9 +1,13 @@
+/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* -----------------------------
+   Base Layer: Theme & Global Styles
+------------------------------ */
 @layer base {
   :root {
     --background: 228 25% 97%;
@@ -62,19 +66,31 @@
     --sidebar-border: 240 50% 72%;
     --sidebar-ring: 0 0% 100%;
   }
-}
 
-@layer base {
+  /* Apply border color globally */
   * {
     @apply border-border;
   }
 
+  /* Body base styling */
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+
+  /* Global animation toggle for Standard/Premium modes */
+  body.disable-animations *,
+  body.disable-animations *::before,
+  body.disable-animations *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
+/* -----------------------------
+   Utilities Layer
+------------------------------ */
 @layer utilities {
+  /* Hide scrollbar utility */
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
@@ -82,4 +98,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+body.disable-animations *,
+body.disable-animations *::before,
+body.disable-animations *::after {
+  animation: none !important;
+  transition: none !important;
 }

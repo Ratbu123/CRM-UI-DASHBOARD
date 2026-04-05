@@ -1,7 +1,18 @@
+import { useEffect } from "react";
 import { useMode } from "@/contexts/ModeContext";
 
 const ModeToggle = () => {
   const { mode, setMode } = useMode();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Toggle global CSS/Tailwind animations
+      document.body.classList.toggle("disable-animations", mode === "standard");
+
+      // Store the mode in localStorage so charts/other components can access
+      localStorage.setItem("dashboardMode", mode);
+    }
+  }, [mode]);
 
   return (
     <div className="flex items-center gap-1 rounded-lg bg-muted p-1">

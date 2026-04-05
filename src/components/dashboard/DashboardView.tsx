@@ -86,7 +86,14 @@ const DashboardView = () => {
                   contentStyle={{ borderRadius: 8, border: "1px solid hsl(228,20%,91%)", fontSize: 12 }}
                   formatter={(v: number) => [`$${v.toLocaleString()}`, "Revenue"]}
                 />
-                <Area type="monotone" dataKey="value" stroke="hsl(240,60%,65%)" strokeWidth={2.5} fill="url(#salesGrad)" />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="hsl(240,60%,65%)"
+                  strokeWidth={2.5}
+                  fill="url(#salesGrad)"
+                  isAnimationActive={isPremium} // ✅ Correctly placed here
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -100,9 +107,18 @@ const DashboardView = () => {
           </div>
           <div className="space-y-3">
             {latestEvents.map((ev, i) => (
-              <div key={i} className={`flex items-center justify-between ${isPremium ? "transition-colors duration-150 hover:bg-muted/50 -mx-2 px-2 rounded-lg" : ""}`}>
+              <div
+                key={i}
+                className={`flex items-center justify-between ${
+                  isPremium ? "transition-colors duration-150 hover:bg-muted/50 -mx-2 px-2 rounded-lg" : ""
+                }`}
+              >
                 <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold ${eventColors[ev.type] || "bg-muted text-muted-foreground"}`}>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold ${
+                      eventColors[ev.type] || "bg-muted text-muted-foreground"
+                    }`}
+                  >
                     {ev.type[0]}
                   </div>
                   <div>
@@ -133,7 +149,16 @@ const DashboardView = () => {
             <div className="w-[160px] h-[160px] relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={incomeData} cx="50%" cy="50%" innerRadius={50} outerRadius={72} paddingAngle={3} dataKey="value">
+                  <Pie
+                    data={incomeData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={50}
+                    outerRadius={72}
+                    paddingAngle={3}
+                    dataKey="value"
+                    isAnimationActive={isPremium} // ✅ Correct
+                  >
                     {incomeData.map((entry, i) => (
                       <Cell key={i} fill={entry.color} />
                     ))}
@@ -164,14 +189,21 @@ const DashboardView = () => {
             <h3 className="text-sm font-semibold text-foreground">Income Details</h3>
             <TimePeriodTabs active="Week" />
           </div>
-          <p className="text-2xl font-bold text-foreground">$142.000 <span className="text-xs text-success font-medium">↑</span></p>
+          <p className="text-2xl font-bold text-foreground">
+            $142.000 <span className="text-xs text-success font-medium">↑</span>
+          </p>
           <p className="text-xs text-muted-foreground mb-3">Total Income</p>
           <div className="h-[120px] mb-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={incomeBarData} barCategoryGap="30%">
                 <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(228,10%,50%)" }} />
                 <YAxis hide />
-                <Bar dataKey="value" radius={[6, 6, 0, 0]} fill="hsl(152,60%,82%)" />
+                <Bar
+                  dataKey="value"
+                  radius={[6, 6, 0, 0]}
+                  fill="hsl(152,60%,82%)"
+                  isAnimationActive={isPremium} // ✅ Correct
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
