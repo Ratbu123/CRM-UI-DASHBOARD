@@ -42,7 +42,7 @@ const eventColors: Record<string, string> = {
 };
 
 const TimePeriodTabs = ({ active = "Month" }: { active?: string }) => (
-  <div className="flex gap-1 bg-muted rounded-lg p-0.5 text-[11px]">
+  <div className="flex gap-1 bg-muted rounded-lg p-0.5 text-[11px] overflow-hidden">
     {["Day", "Week", "Month"].map((t) => (
       <button
         key={t}
@@ -60,18 +60,18 @@ const DashboardView = () => {
   const { isPremium } = useMode();
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 overflow-x-hidden">
       {/* Top row */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 w-full">
         {/* Sales Chart */}
-        <AnimatedCard className="lg:col-span-3" delay={0}>
+        <AnimatedCard className="w-full lg:col-span-3" delay={0}>
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-sm font-semibold text-foreground">Your Sales</h3>
             <TimePeriodTabs />
           </div>
           <p className="text-2xl font-bold text-foreground">$142.000</p>
           <p className="text-xs text-muted-foreground mb-3">Total Income</p>
-          <div className="h-[180px]">
+          <div className="h-[180px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={salesData}>
                 <defs>
@@ -92,7 +92,7 @@ const DashboardView = () => {
                   stroke="hsl(240,60%,65%)"
                   strokeWidth={2.5}
                   fill="url(#salesGrad)"
-                  isAnimationActive={isPremium} // ✅ Correctly placed here
+                  isAnimationActive={isPremium}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -100,7 +100,7 @@ const DashboardView = () => {
         </AnimatedCard>
 
         {/* Latest Events */}
-        <AnimatedCard className="lg:col-span-2" delay={0.1}>
+        <AnimatedCard className="w-full lg:col-span-2" delay={0.1}>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground">Latest Events</h3>
             <span className="text-xs text-primary font-medium cursor-pointer">View all</span>
@@ -110,7 +110,7 @@ const DashboardView = () => {
               <div
                 key={i}
                 className={`flex items-center justify-between ${
-                  isPremium ? "transition-colors duration-150 hover:bg-muted/50 -mx-2 px-2 rounded-lg" : ""
+                  isPremium ? "transition-colors duration-150 hover:bg-muted/50 px-2 sm:px-0 rounded-lg" : ""
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -138,15 +138,15 @@ const DashboardView = () => {
       </div>
 
       {/* Bottom row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
         {/* Income Breakdown */}
-        <AnimatedCard delay={0.2}>
+        <AnimatedCard className="w-full" delay={0.2}>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground">Income Breakdown</h3>
             <TimePeriodTabs active="Day" />
           </div>
-          <div className="flex items-center gap-6">
-            <div className="w-[160px] h-[160px] relative">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-full sm:w-[160px] h-[160px] relative max-w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -157,7 +157,7 @@ const DashboardView = () => {
                     outerRadius={72}
                     paddingAngle={3}
                     dataKey="value"
-                    isAnimationActive={isPremium} // ✅ Correct
+                    isAnimationActive={isPremium}
                   >
                     {incomeData.map((entry, i) => (
                       <Cell key={i} fill={entry.color} />
@@ -169,7 +169,7 @@ const DashboardView = () => {
                 <span className="text-lg font-bold text-foreground">$85k</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs w-full">
               {incomeData.map((d, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: d.color }} />
@@ -184,7 +184,7 @@ const DashboardView = () => {
         </AnimatedCard>
 
         {/* Income Details */}
-        <AnimatedCard delay={0.3}>
+        <AnimatedCard className="w-full" delay={0.3}>
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-sm font-semibold text-foreground">Income Details</h3>
             <TimePeriodTabs active="Week" />
@@ -193,7 +193,7 @@ const DashboardView = () => {
             $142.000 <span className="text-xs text-success font-medium">↑</span>
           </p>
           <p className="text-xs text-muted-foreground mb-3">Total Income</p>
-          <div className="h-[120px] mb-4">
+          <div className="h-[120px] mb-4 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={incomeBarData} barCategoryGap="30%">
                 <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(228,10%,50%)" }} />
@@ -202,7 +202,7 @@ const DashboardView = () => {
                   dataKey="value"
                   radius={[6, 6, 0, 0]}
                   fill="hsl(152,60%,82%)"
-                  isAnimationActive={isPremium} // ✅ Correct
+                  isAnimationActive={isPremium}
                 />
               </BarChart>
             </ResponsiveContainer>
