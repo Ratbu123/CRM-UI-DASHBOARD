@@ -6,10 +6,12 @@ const ModeToggle = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Toggle global CSS/Tailwind animations
+      // Toggle global CSS classes
       document.body.classList.toggle("disable-animations", mode === "standard");
+      document.body.classList.toggle("premium", mode === "premium");
+      document.body.classList.toggle("standard", mode === "standard");
 
-      // Store the mode in localStorage so charts/other components can access
+      // Store the mode in localStorage
       localStorage.setItem("dashboardMode", mode);
     }
   }, [mode]);

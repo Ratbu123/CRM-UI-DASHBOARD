@@ -80,12 +80,18 @@ const Sidebar = ({ active, onNavigate, mobileOpen, onMobileClose }: SidebarProps
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = active === item.id;
+
+            const activeClass = isActive
+              ? isPremium
+                ? "sidebar-active-liquid" // Liquid glass in Premium
+                : "bg-sidebar-active/20 text-sidebar-active" // Standard plain active
+              : "opacity-70 hover:opacity-100 hover:bg-sidebar-active/10";
+
             return (
               <button
                 key={item.id}
                 onClick={() => { onNavigate(item.id); onMobileClose(); }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${transClass}
-                  ${isActive ? "bg-sidebar-active/20 text-sidebar-active" : "opacity-70 hover:opacity-100 hover:bg-sidebar-active/10"}`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${transClass} ${activeClass}`}
               >
                 <Icon size={18} />
                 {item.label}
