@@ -145,16 +145,18 @@ const DashboardView = () => {
             <h3 className="text-sm font-semibold text-foreground">Income Breakdown</h3>
             <TimePeriodTabs active="Day" />
           </div>
+
           <div className="flex flex-col sm:flex-row items-center gap-6">
-            <div className="w-full sm:w-[160px] h-[160px] relative max-w-full">
-              <ResponsiveContainer width="100%" height="100%">
+            {/* Pie chart */}
+            <div className="flex-shrink-0 w-[200px] h-[200px] relative">
+              <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
                   <Pie
                     data={incomeData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
-                    outerRadius={72}
+                    innerRadius={60}
+                    outerRadius={90}
                     paddingAngle={3}
                     dataKey="value"
                     isAnimationActive={isPremium}
@@ -169,6 +171,8 @@ const DashboardView = () => {
                 <span className="text-lg font-bold text-foreground">$85k</span>
               </div>
             </div>
+
+            {/* Legend */}
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs w-full">
               {incomeData.map((d, i) => (
                 <div key={i} className="flex items-center gap-2">
